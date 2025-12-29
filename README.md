@@ -2,6 +2,10 @@
 
 A Flutter application that displays open pull requests from GitHub repositories using the GitHub REST API, featuring simulated authentication with secure token storage.
 
+> **Repository**: [Arjun6112/mset_assignment](https://github.com/Arjun6112/mset_assignment)
+> 
+> **Test Branch**: This PR demonstrates the app's ability to fetch and display pull requests from this repository!
+
 ## 📱 Features
 
 ### Core Features

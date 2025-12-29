@@ -55,7 +55,6 @@ class PullRequestCard extends StatelessWidget {
                     radius: 20,
                     backgroundImage: NetworkImage(pullRequest.authorAvatarUrl),
                     onBackgroundImageError: (_, __) {},
-                    child: const Icon(Icons.person),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
