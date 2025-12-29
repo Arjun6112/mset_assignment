@@ -24,6 +24,32 @@ class PullRequestCard extends StatelessWidget {
     }
   }
 
+  Color _getStateColor() {
+    switch (pullRequest.state.toLowerCase()) {
+      case 'open':
+        return Colors.green;
+      case 'closed':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  IconData _getStateIcon() {
+    switch (pullRequest.state.toLowerCase()) {
+      case 'open':
+        return Icons.merge_type;
+      case 'closed':
+        return Icons.close;
+      default:
+        return Icons.help_outline;
+    }
+  }
+
+  String _getStateText() {
+    return pullRequest.state[0].toUpperCase() + pullRequest.state.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -125,12 +151,12 @@ class PullRequestCard extends StatelessWidget {
               // Footer with state
               Row(
                 children: [
-                  Icon(Icons.merge_type, size: 16, color: theme.primaryColor),
+                  Icon(_getStateIcon(), size: 16, color: _getStateColor()),
                   const SizedBox(width: 4),
                   Text(
-                    'Open',
+                    _getStateText(),
                     style: TextStyle(
-                      color: theme.primaryColor,
+                      color: _getStateColor(),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),

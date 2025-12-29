@@ -8,10 +8,10 @@ class GitHubApiService {
   static const String repo = 'mset_assignment';
   static const String baseUrl = 'https://api.github.com';
 
-  // Fetch open pull requests
+  // Fetch all pull requests (open, closed, merged)
   Future<List<PullRequest>> fetchPullRequests() async {
     try {
-      final url = Uri.parse('$baseUrl/repos/$owner/$repo/pulls?state=open');
+      final url = Uri.parse('$baseUrl/repos/$owner/$repo/pulls?state=all');
 
       final response = await http.get(
         url,
