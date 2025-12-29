@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import '../models/pull_request.dart';
 
 class GitHubApiService {
-  // Using this repository as an example - replace with actual assignment repo
-  static const String owner = 'flutter';
-  static const String repo = 'flutter';
+  // Fetching PRs from the actual assignment repository
+  static const String owner = 'Arjun6112';
+  static const String repo = 'mset_assignment';
   static const String baseUrl = 'https://api.github.com';
 
   // Fetch open pull requests
