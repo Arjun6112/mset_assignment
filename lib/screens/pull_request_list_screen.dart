@@ -129,8 +129,10 @@ class _PullRequestListScreenState extends State<PullRequestListScreen>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      appBar: AppBar(
+    return Semantics(
+      label: 'GitHub Pull Requests Screen',
+      child: Scaffold(
+        appBar: AppBar(
         title: const Row(
           children: [
             Icon(Icons.code),
@@ -277,6 +279,7 @@ class _PullRequestListScreenState extends State<PullRequestListScreen>
           ],
         ),
       ),
+    ),
     );
   }
 }

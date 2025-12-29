@@ -28,22 +28,28 @@ class PullRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: InkWell(
-        onTap: () {
-          // Could open PR in browser or show details
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('PR #${pullRequest.number}: ${pullRequest.title}'),
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
+    return Semantics(
+      label: 'Pull request #${pullRequest.number}: ${pullRequest.title}, '
+          'by ${pullRequest.authorUsername}, '
+          'created ${_formatDate(pullRequest.createdAt)}, '
+          'state: ${_getStateText()}',
+      button: true,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 16),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: InkWell(
+          onTap: () {
+            // Could open PR in browser or show details
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('PR #${pullRequest.number}: ${pullRequest.title}'),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          },
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
