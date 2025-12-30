@@ -133,78 +133,79 @@ class _PullRequestListScreenState extends State<PullRequestListScreen>
       label: 'GitHub Pull Requests Screen',
       child: Scaffold(
         appBar: AppBar(
-        title: const Row(
-          children: [
-            Icon(Icons.code),
-            SizedBox(width: 4),
-            Text('GitHub Pull Requests'),
+          title: const Row(
+            children: [
+              Icon(Icons.code),
+              SizedBox(width: 4),
+              Text('GitHub Pull Requests'),
+            ],
+          ),
+          actions: [
+            // Token info button
+            IconButton(
+              icon: const Icon(Icons.vpn_key),
+              tooltip: 'Show Token',
+              onPressed: _showTokenInfo,
+            ),
+
+            // Theme toggle button
+            RotationTransition(
+              turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
+              child: IconButton(
+                icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                tooltip: isDark ? 'Light Mode' : 'Dark Mode',
+                onPressed: _toggleTheme,
+              ),
+            ),
+
+            // Logout button
+            IconButton(
+              icon: const Icon(Icons.logout),
+              tooltip: 'Logout',
+              onPressed: _handleLogout,
+            ),
           ],
         ),
-        actions: [
-          // Token info button
-          IconButton(
-            icon: const Icon(Icons.vpn_key),
-            tooltip: 'Show Token',
-            onPressed: _showTokenInfo,
-          ),
+        body: Consumer<PullRequestProvider>(
+          builder: (context, provider, child) {
+            if (provider.isLoading && provider.pullRequests.isEmpty) {
+              return const PullRequestShimmer();
+            }
 
-          // Theme toggle button
-          RotationTransition(
-            turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-            child: IconButton(
-              icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-              tooltip: isDark ? 'Light Mode' : 'Dark Mode',
-              onPressed: _toggleTheme,
-            ),
-          ),
+            if (provider.hasError) {
+              return _buildErrorState(provider.errorMessage);
+            }
 
-          // Logout button
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: _handleLogout,
-          ),
-        ],
-      ),
-      body: Consumer<PullRequestProvider>(
-        builder: (context, provider, child) {
-          if (provider.isLoading && provider.pullRequests.isEmpty) {
-            return const PullRequestShimmer();
-          }
+            if (provider.pullRequests.isEmpty) {
+              return _buildEmptyState();
+            }
 
-          if (provider.hasError) {
-            return _buildErrorState(provider.errorMessage);
-          }
-
-          if (provider.pullRequests.isEmpty) {
-            return _buildEmptyState();
-          }
-
-          return RefreshIndicator(
-            onRefresh: _handleRefresh,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: provider.pullRequests.length,
-              itemBuilder: (context, index) {
-                final pr = provider.pullRequests[index];
-                return TweenAnimationBuilder<double>(
-                  duration: Duration(milliseconds: 300 + (index * 50)),
-                  tween: Tween(begin: 0.0, end: 1.0),
-                  builder: (context, value, child) {
-                    return Opacity(
-                      opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - value)),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: PullRequestCard(pullRequest: pr),
-                );
-              },
-            ),
-          );
-        },
+            return RefreshIndicator(
+              onRefresh: _handleRefresh,
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: provider.pullRequests.length,
+                itemBuilder: (context, index) {
+                  final pr = provider.pullRequests[index];
+                  return TweenAnimationBuilder<double>(
+                    duration: Duration(milliseconds: 300 + (index * 50)),
+                    tween: Tween(begin: 0.0, end: 1.0),
+                    builder: (context, value, child) {
+                      return Opacity(
+                        opacity: value,
+                        child: Transform.translate(
+                          offset: Offset(0, 20 * (1 - value)),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: PullRequestCard(pullRequest: pr),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -279,7 +280,6 @@ class _PullRequestListScreenState extends State<PullRequestListScreen>
           ],
         ),
       ),
-    ),
     );
   }
 }
