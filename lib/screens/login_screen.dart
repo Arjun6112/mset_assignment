@@ -85,7 +85,10 @@ class _LoginScreenState extends State<LoginScreen>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // GitHub Logo
-                    Icon(Icons.code, size: 80, color: theme.primaryColor),
+                    Semantics(
+                      label: 'GitHub Pull Request Viewer Logo',
+                      child: Icon(Icons.code, size: 80, color: theme.primaryColor),
+                    ),
                     const SizedBox(height: 24),
 
                     // Title
