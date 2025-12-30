@@ -3,15 +3,16 @@
 A Flutter application that displays open pull requests from GitHub repositories using the GitHub REST API, featuring simulated authentication with secure token storage.
 
 > **Repository**: [Arjun6112/mset_assignment](https://github.com/Arjun6112/mset_assignment)
-> 
+>
 > **Test Branch**: This PR demonstrates the app's ability to fetch and display pull requests from this repository!
 
 ## 📱 Features
 
 ### Core Features
 
-- ✅ Fetch and display open pull requests from GitHub
+- ✅ Fetch and display **all** pull requests from GitHub (open, closed)
 - ✅ Display PR details: title, description, author, created date
+- ✅ **Color-coded PR states** - Green for open, red for closed
 - ✅ Simulated login with secure token storage using SharedPreferences
 - ✅ Clean architecture with Provider state management
 - ✅ Proper error handling and loading states
@@ -26,6 +27,7 @@ A Flutter application that displays open pull requests from GitHub repositories 
 - ✅ **Unit & Widget Tests** - Test coverage for models and services
 - ✅ **Animations** - Smooth transitions and fade-in effects
 - ✅ **Empty State Handling** - User-friendly messages when no PRs exist
+- ✅ **Accessibility Support** - Screen reader support with Semantics widgets
 
 ## 📁 Project Structure
 
@@ -69,7 +71,7 @@ test/
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Arjun6112/mset_assignment.git
    cd mset_assignment
    ```
 
@@ -98,9 +100,10 @@ This app demonstrates secure token storage for authentication:
 
 1. **Login Flow**:
 
-   - User enters any username and password (demo credentials)
+   - User enters credentials (any non-empty username and password)
    - On successful "login", a simulated token (`abc123`) is generated
    - Token is stored using `shared_preferences` package
+   - **Note**: Currently accepts any credentials for demo purposes
 
 2. **Token Storage**:
 
@@ -150,7 +153,14 @@ dependencies:
 
 ## 🎯 API Configuration
 
-Currently configured to fetch PRs from `flutter/flutter` repository. To change:
+Currently configured to fetch PRs from **this repository** (`Arjun6112/mset_assignment`).
+
+The app fetches **all** pull requests (open, closed, and merged) and displays them with color-coded states:
+
+- 🟢 **Green** - Open PRs
+- 🔴 **Red** - Closed PRs
+
+To change the repository:
 
 1. Open `lib/services/github_api_service.dart`
 2. Modify the constants:
@@ -213,19 +223,29 @@ Options:
 
 2. **Repository Configuration**
 
-   - Currently hardcoded to flutter/flutter repo
+   - Currently hardcoded to `Arjun6112/mset_assignment`
    - Future: Add settings screen to change repository
 
-3. **Network Error Handling**
+3. **Demo Authentication**
+
+   - Accepts any non-empty credentials (demonstration only)
+   - Future: Add specific demo username/password validation
+
+4. **Network Error Handling**
 
    - Basic error messages shown
    - Future: More granular error categorization
 
-4. **Testing Coverage**
+5. **Testing Coverage**
+
    - Core models and services tested
    - Future: Increase widget test coverage
    - Future: Add integration tests
 
+6. **Demo Video**
+   
+
+   
 ## 🧪 Testing
 
 ### Run All Tests
@@ -258,12 +278,14 @@ flutter test test/models/pull_request_test.dart
 ## 🔮 Future Enhancements
 
 - [ ] Real GitHub OAuth integration
-- [ ] PR detail screen with comments
+- [ ] PR detail screen with comments and files changed
 - [ ] Search and filter functionality
-- [ ] Multiple repository support
-- [ ] Offline caching
-- [ ] Accessibility improvements (TalkBack/VoiceOver)
-- [ ] CI/CD pipeline setup
+- [ ] Multiple repository support with settings
+- [ ] Offline caching with local database
+- [ ] More comprehensive accessibility testing
+- [ ] CI/CD pipeline setup with GitHub Actions
+- [ ] Deep linking to open PRs in browser
+- [ ] Proper demo credentials validation
 
 ## 👨‍💻 Development
 
